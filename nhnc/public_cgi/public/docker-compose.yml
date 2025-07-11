@@ -1,0 +1,19 @@
+services:
+  nhnc-pwn-cute-fox-article-and-cgi:
+    image: nhnc-pwn-cute-fox-article-and-cgi
+    build: .
+    ports:
+      - ${PORT0}:80/tcp
+    volumes:
+      #- "./src/main.cgi:/usr/lib/cgi-bin/main.cgi"
+      - /tmp/${ID}/userid:/userid:ro
+      #- /tmp/${ID}/flag:/flag:ro
+    networks:
+      default:
+
+networks:
+  default:
+    ipam:
+      config:
+      # Instancer will use ${SUBNET<Number>} to control your subnet
+      - subnet: ${SUBNET0}

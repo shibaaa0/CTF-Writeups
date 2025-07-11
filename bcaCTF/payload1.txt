@@ -1,0 +1,1 @@
+This is a harmless file pretending to be malware.

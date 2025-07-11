@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>View</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 40px 20px;
+    }
+    .article-container {
+      max-width: 700px;
+      background: white;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .tags {
+      margin-bottom: 20px;
+    }
+    .tag {
+      display: inline-block;
+      background-color: #e0f0ff;
+      color: #0077cc;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin: 5px 8px 5px 0;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .author {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .content {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="article-container">
+    <div class="tags">
+      {{tags}}
+      <!--<span class="tag">科技</span>
+      <span class="tag">AI</span>
+      <span class="tag">未來趨勢</span>-->
+    </div>
+    <div class="title">%s</div>
+    <div class="author">Author: %s | <a href="/cgi-bin/main.cgi/view?post=%s&format=raw">[Raw]</a></div>
+    <div class="content">
+%s
+    </div>
+  </div>
+</body>
+</html>

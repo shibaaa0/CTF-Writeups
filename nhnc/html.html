@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Load WASM</title>
+</head>
+<body>
+  <h1>WebAssembly Demo</h1>
+  <script>
+    fetch('challenge.wasm')
+      .then(response => response.arrayBuffer())
+      .then(bytes => WebAssembly.instantiate(bytes))
+      .then(results => {
+        console.log("WASM loaded:", results.instance);
+        // Ví dụ gọi hàm export từ WASM (nếu có)
+        if (results.instance.exports._start) {
+          results.instance.exports._start();
+        }
+      });
+  </script>
+</body>
+</html>
