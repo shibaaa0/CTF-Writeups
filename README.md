@@ -1,1 +1,1 @@
-# write-up-CTF
+# CTF-Writeups
